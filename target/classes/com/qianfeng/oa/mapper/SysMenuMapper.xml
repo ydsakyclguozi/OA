@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qianfeng.oa.mapper.SysMenuMapper">
+  <resultMap id="BaseResultMap" type="com.qianfeng.oa.entity.SysMenu">
+    <id column="MENU_ID" jdbcType="BIGINT" property="menuId" />
+    <result column="MENU_PARENT_ID" jdbcType="BIGINT" property="menuParentId" />
+    <result column="MENU_NAME" jdbcType="VARCHAR" property="menuName" />
+    <result column="MENU_TYPE" jdbcType="SMALLINT" property="menuType" />
+    <result column="MENU_PATH" jdbcType="VARCHAR" property="menuPath" />
+    <result column="MENU_DESC" jdbcType="VARCHAR" property="menuDesc" />
+    <result column="IS_PUBLISH" jdbcType="BIT" property="isPublish" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+
+  <resultMap id="BaseParentResultMap" type="com.qianfeng.oa.entity.SysMenuParent" extends="BaseResultMap">
+    <result column="MENU_PARENT_NAME" jdbcType="VARCHAR" property="menuParentName"></result>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    MENU_ID, MENU_PARENT_ID, MENU_NAME, MENU_TYPE, MENU_PATH, MENU_DESC, IS_PUBLISH, 
+    CREATE_TIME, UPDATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_menu
+    where MENU_ID = #{menuId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sys_menu
+    where MENU_ID = #{menuId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.qianfeng.oa.entity.SysMenu">
+    insert into sys_menu (MENU_ID, MENU_PARENT_ID, MENU_NAME, 
+      MENU_TYPE, MENU_PATH, MENU_DESC, 
+      IS_PUBLISH, CREATE_TIME, UPDATE_TIME
+      )
+    values (#{menuId,jdbcType=BIGINT}, #{menuParentId,jdbcType=BIGINT}, #{menuName,jdbcType=VARCHAR}, 
+      #{menuType,jdbcType=SMALLINT}, #{menuPath,jdbcType=VARCHAR}, #{menuDesc,jdbcType=VARCHAR}, 
+      #{isPublish,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.qianfeng.oa.entity.SysMenu">
+    insert into sys_menu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="menuId != null">
+        MENU_ID,
+      </if>
+      <if test="menuParentId != null">
+        MENU_PARENT_ID,
+      </if>
+      <if test="menuName != null">
+        MENU_NAME,
+      </if>
+      <if test="menuType != null">
+        MENU_TYPE,
+      </if>
+      <if test="menuPath != null">
+        MENU_PATH,
+      </if>
+      <if test="menuDesc != null">
+        MENU_DESC,
+      </if>
+      <if test="isPublish != null">
+        IS_PUBLISH,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="menuId != null">
+        #{menuId,jdbcType=BIGINT},
+      </if>
+      <if test="menuParentId != null">
+        #{menuParentId,jdbcType=BIGINT},
+      </if>
+      <if test="menuName != null">
+        #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuType != null">
+        #{menuType,jdbcType=SMALLINT},
+      </if>
+      <if test="menuPath != null">
+        #{menuPath,jdbcType=VARCHAR},
+      </if>
+      <if test="menuDesc != null">
+        #{menuDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="isPublish != null">
+        #{isPublish,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qianfeng.oa.entity.SysMenu">
+    update sys_menu
+    <set>
+      <if test="menuParentId != null">
+        MENU_PARENT_ID = #{menuParentId,jdbcType=BIGINT},
+      </if>
+      <if test="menuName != null">
+        MENU_NAME = #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuType != null">
+        MENU_TYPE = #{menuType,jdbcType=SMALLINT},
+      </if>
+      <if test="menuPath != null">
+        MENU_PATH = #{menuPath,jdbcType=VARCHAR},
+      </if>
+      <if test="menuDesc != null">
+        MENU_DESC = #{menuDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="isPublish != null">
+        IS_PUBLISH = #{isPublish,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where MENU_ID = #{menuId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qianfeng.oa.entity.SysMenu">
+    update sys_menu
+    set MENU_PARENT_ID = #{menuParentId,jdbcType=BIGINT},
+      MENU_NAME = #{menuName,jdbcType=VARCHAR},
+      MENU_TYPE = #{menuType,jdbcType=SMALLINT},
+      MENU_PATH = #{menuPath,jdbcType=VARCHAR},
+      MENU_DESC = #{menuDesc,jdbcType=VARCHAR},
+      IS_PUBLISH = #{isPublish,jdbcType=BIT},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where MENU_ID = #{menuId,jdbcType=BIGINT}
+  </update>
+
+  <!--   根据搜索条件查询菜单信息  -->
+  <select id="queryMenuByCondition" parameterType="sysMenu" resultMap="BaseResultMap" >
+    select * from sys_menu
+    <where>
+      <if test="menuName != null and menuName !=''">
+        and menu_name like concat('%',#{menuName},'%')
+      </if>
+      <if test="isPublish != null">
+        and IS_PUBLISH = #{isPublish}
+      </if>
+    </where>
+  </select>
+
+  <!--  查询菜单集合信息（展示树要用的数据）  -->
+  <select id="getList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_menu
+    where IS_PUBLISH = 1
+  </select>
+
+  <!--通过菜单ID查询查询信息，包含菜单的父菜单名称-->
+  <select id="selectSysMenuParentByMenuId" parameterType="Long" resultMap="BaseParentResultMap">
+    select a.*,b.menu_name as menu_parent_name from sys_menu a,sys_menu b
+    where a.MENU_PARENT_ID = b.MENU_ID and a.MENU_ID = #{menuId}
+  </select>
+
+  <!-- 修改flag值 假删菜单 -->
+  <update id="updateFlagByMenuId">
+    update sys_menu set IS_PUBLISH = 0 where MENU_ID = #{menuId}
+  </update>
+
+  <!-- 批量修改flag值 假删菜单 -->
+  <update id="updateFlagByIdList">
+    update sys_menu set IS_PUBLISH = 0 where MENU_ID in
+    <foreach collection="list" item="id" open="(" close=")" separator=",">
+      #{id}
+    </foreach>
+  </update>
+
+  <!--  根据角色roleId查询该角色下所有授权菜单信息 -->
+  <select id="queryAuthMenuByRoleId" resultMap="BaseParentResultMap">
+    SELECT * from sys_menu  where IS_PUBLISH=1 and MENU_ID IN
+    (SELECT srm.menu_Id FROM sys_role_menu srm where ROLE_ID = #{roleId})
+  </select>
+
+  <!--  根据角色roleId和查询条件查询该角色下所有未授权菜单信息 -->
+  <select id="queryNoAuthMenuByRoleId" resultMap="BaseParentResultMap">
+    SELECT * from sys_menu  where IS_PUBLISH=1 and MENU_ID NOT IN
+    (SELECT srm.menu_Id FROM sys_role_menu srm where ROLE_ID = #{roleId})
+    <if test="menuName != null and menuName !=''">
+      and MENU_NAME like concat('%',#{menuName},'%')
+    </if>
+  </select>
+
+</mapper>
